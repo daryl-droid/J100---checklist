@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>J100 Lift Checklist (simple)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="J100 Lift">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000'/%3E%3Ctext x='32' y='42' font-size='26' font-family='Arial' font-weight='bold' text-anchor='middle' fill='white'%3EJ100%3C/text%3E%3C/svg%3E">
+<style>
+:root{--g:#0a7a2f;--r:#c40000;--ink:#000;--mut:#333;--line:#000;--grey:#555}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font:18px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+header{background:#000;color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;display:flex;align-items:center;gap:10px}
+header h1{margin:0;font-size:21px;flex:1;line-height:1.1}
+header h1 small{display:block;font-size:13px;font-weight:400;opacity:.9}
+header button{min-height:44px;padding:0 12px;border:2px solid #fff;border-radius:10px;background:#000;color:#fff;font-family:inherit;font-weight:700;font-size:15px}
+main{max-width:620px;margin:0 auto;padding:10px 12px 24px}
+section{border:3px solid var(--line);border-radius:14px;padding:12px;margin:0 0 12px}
+h2{margin:0 0 10px;font-size:21px;display:flex;align-items:center;gap:10px}
+h2 .n{background:#000;color:#fff;border-radius:50%;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+label.f{display:block;margin:0 0 10px}
+label.f>span{display:block;font-size:15px;font-weight:700;margin-bottom:3px}
+input[type=text],select{width:100%;min-height:54px;font-size:20px;padding:8px 12px;border:2px solid #000;border-radius:10px;background:#fff;color:#000;font-family:inherit;-webkit-appearance:none;appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,#000 50%),linear-gradient(135deg,#000 50%,transparent 50%);background-position:calc(100% - 22px) 24px,calc(100% - 14px) 24px;background-size:8px 8px;background-repeat:no-repeat;padding-right:36px}
+input:focus,select:focus{outline:4px solid #0057ff;outline-offset:1px}
+input.bad{border-color:var(--r);background:#ffecec}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.u{font-weight:400}
+.hint{font-size:13px;font-weight:600;color:var(--mut);margin:-6px 0 8px}
+.tot{font-size:19px;font-weight:800;border-top:3px solid #000;padding-top:8px;margin-top:2px}
+.tot code{display:block;font:600 15px/1.35 ui-monospace,Menlo,monospace;color:var(--mut);word-break:break-word}
+.lim{font-size:13px;font-weight:700;background:#fff3b0;border:2px solid #000;border-radius:8px;padding:6px 8px;margin:0 0 10px;line-height:1.35}
+.note{font-size:12px;font-weight:600;color:var(--mut);margin:0 0 8px;line-height:1.35}
+.work{font-size:14px;font-weight:700;margin:0 0 6px;line-height:1.3}
+.res{border-radius:12px;padding:14px 10px;text-align:center;font-weight:900;font-size:26px;line-height:1.1;color:#fff;background:var(--grey);margin-top:4px}
+.res small{display:block;font-size:15px;font-weight:700;margin-top:6px;line-height:1.25}
+.res.green{background:var(--g)}
+.res.red{background:var(--r)}
+.wx{font-size:17px;font-weight:800;padding:8px 10px;border-radius:10px;border:3px solid #000;margin-top:2px}
+.wx.ok{background:#d8f5e0;border-color:var(--g);color:#05501f}
+.wx.over{background:var(--r);color:#fff;border-color:var(--r)}
+.tg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.tg>label,.qc>label{position:relative;display:block;cursor:pointer}
+.tg>label>input,.qc>label>input{position:absolute;opacity:0;width:1px;height:1px}
+.tg>label>span{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:62px;border:3px solid #000;border-radius:10px;font-weight:800;font-size:17px;background:#fff;text-align:center;line-height:1.1}
+.tg>label>span i{font-style:normal;font-size:13px;font-weight:700;margin-top:3px}
+.tg>label>input:checked+span{background:#000;color:#fff}
+.tg>label>input:focus-visible+span,.qc>label>input:focus-visible+span{outline:4px solid #0057ff}
+.qc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qc span{display:flex;align-items:center;gap:10px;min-height:58px;padding:5px 8px;border:3px solid #000;border-radius:10px;font-weight:800;font-size:15px;line-height:1.15;background:#fff}
+.qc span::before{content:"";flex:none;width:30px;height:30px;border:3px solid #000;border-radius:7px;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:22px;color:#fff}
+.qc input:checked+span{background:#d8f5e0;border-color:var(--g)}
+.qc input:checked+span::before{content:"\2713";background:var(--g);border-color:var(--g)}
+[hidden]{display:none!important}
+.rowL{display:grid;grid-template-columns:2fr 3fr;gap:10px}
+.rowL select{font-size:18px}
+.hz{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.hz .tg{grid-template-columns:1fr}
+.hz label.f{margin:8px 0 0}
+.sub{font-size:15px;font-weight:700;margin:0 0 4px}
+.cnt{font-size:15px;font-weight:700;margin:8px 0 0}
+#go{display:block;width:100%;min-height:84px;border:0;border-radius:16px;font-family:inherit;font-weight:900;font-size:36px;line-height:1;letter-spacing:3px;background:var(--g);color:#fff;margin:4px 0 8px}
+#go:disabled{background:#bdbdbd;color:#4a4a4a;letter-spacing:0;font-size:24px}
+#go.done{background:#000}
+#why{font-size:16px;font-weight:700;margin:0 0 6px}
+#why li{margin:2px 0}
+#why ul{margin:4px 0 0;padding-left:22px}
+.foot{font-size:13px;color:var(--mut);margin-top:10px}
+#btnSave{display:block;width:100%;min-height:54px;margin:12px 0 6px;border:3px solid #000;border-radius:14px;background:#fff;color:#000;font-family:inherit;font-weight:800;font-size:18px}
+#btnSave:active{background:#eee}
+.dt{border:3px solid var(--line);border-radius:14px;padding:10px 12px 2px;margin:0 0 12px;background:#f4f7ff}
+.dt .sub{font-size:17px;font-weight:800;margin:0 0 6px}
+.dt .row{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
+.dt label.f{min-width:0}
+input[type=date],input[type=time]{display:block;width:100%;min-width:0;min-height:54px;font-size:20px;font-weight:700;padding:8px 10px;border:2px solid #000;border-radius:10px;background:#fff;color:#000;font-family:inherit;-webkit-appearance:none;appearance:none;text-align:left}
+input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and-time-value{text-align:left}
+#saveHint{font-size:14px;font-weight:700;color:var(--mut);margin:0 0 8px;min-height:1.2em}
+</style>
+</head>
+<body>
+<header>
+  <h1>J100 Lift Checklist<small>Simple - works offline</small></h1>
+  <button type="button" id="btnNew">New lift</button>
+</header>
+<main>
+
+<div class="dt" id="s-dt">
+  <div class="sub">Date &amp; time of lift <span class="u">(auto-filled, tap to change)</span></div>
+  <div class="row">
+    <label class="f"><span>Date</span><input type="date" id="liftDate" autocomplete="off"></label>
+    <label class="f"><span>Time</span><input type="time" id="liftTime" autocomplete="off"></label>
+  </div>
+</div>
+
+<section id="s-load">
+  <h2><span class="n">1</span>Load</h2>
+  <label class="f"><span>What you're lifting</span><input type="text" id="what" autocomplete="off" placeholder="e.g. tower part"></label>
+  <div class="row">
+    <label class="f"><span>Load weight <span class="u">(kg)</span></span><input type="text" id="wLoad" inputmode="decimal" autocomplete="off" placeholder="kg"></label>
+    <label class="f"><span>Rigging weight <span class="u">(kg)</span></span><input type="text" id="wRig" inputmode="decimal" autocomplete="off" placeholder="line+hook+slings"></label>
+  </div>
+  <div class="rowL">
+    <label class="f"><span>Line length <span class="u">(m)</span></span><input type="text" id="lineLen" inputmode="decimal" autocomplete="off" placeholder="m"></label>
+    <label class="f"><span>Line type</span><select id="lineType"><option value="">Choose</option><option>Synthetic rope</option><option>Steel cable</option><option>Chain</option><option>Other</option></select></label>
+  </div>
+  <div class="tot">Total lifted: <span id="total">-- kg</span>
+    <code id="totF">load + rigging (enter 0 if none)</code></div>
+</section>
+
+<section id="s-cap">
+  <h2><span class="n">2</span>Capacity</h2>
+  <div class="lim">Drone max payload is entered by YOU (manual max lift 60 kg). Altitude derating and operating ranges from EAVision J100 User Manual (2024), Specifications &amp; Lifting precautions.</div>
+  <label class="f"><span>Drone max payload <span class="u">(kg, saved on phone)</span></span><input type="text" id="payload" inputmode="decimal" autocomplete="off" placeholder="enter kg"></label>
+  <div class="hint">Manual: max 60 kg lift</div>
+  <label class="f"><span>Weakest rigging rating <span class="u">(kg)</span></span><input type="text" id="weak" inputmode="decimal" autocomplete="off" placeholder="enter kg"></label>
+  <div class="row3">
+    <label class="f"><span>Temp <span class="u">(&deg;C)</span></span><input type="text" id="temp" inputmode="decimal" autocomplete="off" placeholder="&deg;C"></label>
+    <label class="f"><span>Humidity <span class="u">(%)</span></span><input type="text" id="humid" inputmode="decimal" autocomplete="off" placeholder="% RH"></label>
+    <label class="f"><span>Altitude <span class="u">(m ASL)</span></span><input type="text" id="alt" inputmode="decimal" autocomplete="off" placeholder="m ASL"></label>
+  </div>
+  <div class="work" id="altWork" hidden></div>
+  <div class="res" id="cap" role="status" aria-live="polite">ENTER NUMBERS<small>Total load, drone max payload and weakest rating</small></div>
+  <p class="note">Altitude above 1000 m ASL: allowed payload reduced by 2.5 kg per 500 m (or part) above 1000 m. Temp must be -10 to 45 &deg;C; humidity 30 to 90% RH (outside range blocks GO). Manual gives no further temp/humidity payload derating. Source: EAVision J100 User Manual (2024), Specifications &amp; Lifting precautions.</p>
+</section>
+
+<section id="s-flight">
+  <h2><span class="n">3</span>Flight</h2>
+  <div class="row">
+    <label class="f"><span>Distance <span class="u">(m)</span></span><input type="text" id="dist" inputmode="decimal" autocomplete="off" placeholder="m"></label>
+    <label class="f"><span>Height <span class="u">(m)</span></span><input type="text" id="height" inputmode="decimal" autocomplete="off" placeholder="m"></label>
+  </div>
+  <div class="sub">Anything underneath? <span class="u">(tap if yes)</span></div>
+  <div class="tg">
+    <label><input type="checkbox" id="uPeople"><span>People<i id="uPeopleT">no</i></span></label>
+    <label><input type="checkbox" id="uRoads"><span>Roads<i id="uRoadsT">no</i></span></label>
+    <label><input type="checkbox" id="uWater"><span>Water<i id="uWaterT">no</i></span></label>
+  </div>
+  <div class="hz">
+    <div>
+      <div class="sub">Powerlines present?</div>
+      <div class="tg"><label><input type="checkbox" id="pwr"><span>Powerlines<i id="pwrT">no</i></span></label></div>
+      <label class="f" id="pwrHW" hidden><span>Powerline height <span class="u">(m)</span></span><input type="text" id="pwrH" inputmode="decimal" autocomplete="off" placeholder="m"></label>
+    </div>
+    <div>
+      <div class="sub">Trees present?</div>
+      <div class="tg"><label><input type="checkbox" id="trees"><span>Trees<i id="treesT">no</i></span></label></div>
+      <label class="f" id="treesHW" hidden><span>Tree height <span class="u">(m)</span></span><input type="text" id="treesH" inputmode="decimal" autocomplete="off" placeholder="m"></label>
+    </div>
+  </div>
+</section>
+
+<section id="s-wx">
+  <h2><span class="n">4</span>Weather</h2>
+  <div class="row">
+    <label class="f"><span>Your wind limit <span class="u">(saved on phone)</span></span><input type="text" id="windLim" inputmode="decimal" autocomplete="off" placeholder="enter limit"></label>
+    <label class="f"><span>Unit</span><select id="windUnit"><option>km/h</option><option>m/s</option><option>kn</option></select></label>
+  </div>
+  <div class="row">
+    <label class="f"><span>Wind now</span><input type="text" id="wind" inputmode="decimal" autocomplete="off" placeholder="wind"></label>
+    <label class="f"><span>Gust</span><input type="text" id="gust" inputmode="decimal" autocomplete="off" placeholder="gust"></label>
+  </div>
+  <div class="wx" id="wxStat" role="status" aria-live="polite">Enter wind limit, wind and gust</div>
+</section>
+
+<section id="s-qc">
+  <h2><span class="n">5</span>Quick checks</h2>
+  <div class="qc" id="qc">
+    <label><input type="checkbox" data-q="props"><span>Props</span></label>
+    <label><input type="checkbox" data-q="batt"><span>Batteries</span></label>
+    <label><input type="checkbox" data-q="hook"><span>Hook release test</span></label>
+    <label><input type="checkbox" data-q="line"><span>Line condition</span></label>
+    <label><input type="checkbox" data-q="rigInsp"><span>Rigging inspected &ndash; no damage</span></label>
+    <label><input type="checkbox" data-q="rig"><span>Load rigged &amp; secure</span></label>
+    <label><input type="checkbox" data-q="hover"><span>Hover test</span></label>
+    <label><input type="checkbox" data-q="area"><span>Area clear</span></label>
+    <label><input type="checkbox" data-q="lz"><span>Landing zones clear &amp; guarded</span></label>
+    <label><input type="checkbox" data-q="obs"><span>Observer in place</span></label>
+    <label><input type="checkbox" data-q="nav"><span>NavDrone plan active</span></label>
+    <label><input type="checkbox" data-q="manLim"><span>Height under 30 m / speed under 7 m/s (manual flight)</span></label>
+    <label><input type="checkbox" data-q="noWires"><span>Route does not cross wires</span></label>
+    <label><input type="checkbox" data-q="batt30"><span>Battery swap at 30%</span></label>
+    <label><input type="checkbox" data-q="weighed"><span>Load weighed (no unknown weight)</span></label>
+  </div>
+  <div class="cnt" id="qcCount">0 of 15 done</div>
+</section>
+
+<button type="button" id="go" disabled>GO locked</button>
+<div id="why" role="status" aria-live="polite"></div>
+<button type="button" id="btnSave">Save / Email record</button>
+<div id="saveHint" role="status" aria-live="polite"></div>
+<div class="foot">Checklist aid only. The pilot in command makes the final call. No data leaves the phone; only the payload limit and wind limit are remembered. Save / Email builds a PDF on the phone (share sheet or download) &mdash; nothing is uploaded by the app.</div>
+</main>
+<script>
+(function(){
+'use strict';
+var KEY={payload:'j100s.payload',windLim:'j100s.windLim',windUnit:'j100s.windUnit'};
+var MANUAL_MAX_LIFT=60;
+function $(id){return document.getElementById(id)}
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function num(s){
+  s=String(s==null?'':s).replace(/[\u00a0\u2007\u2009\u202f]/g,' ').trim();
+  if(s==='')return null;
+  if(/\s/.test(s)){
+    if(!/^[1-9]\d{0,2}( \d{3})+([.,]\d*)?$/.test(s))return NaN;
+    s=s.replace(/ /g,'');
+  }
+  if(s.indexOf(',')>=0){
+    if(/^[1-9]\d{0,2}(,\d{3})+(\.\d*)?$/.test(s))s=s.replace(/,/g,'');
+    else if(/^\d*,\d*$/.test(s)&&s.split(',')[1].length!==3)s=s.replace(',','.');
+    else return NaN;
+  }
+  if(!/^\d*\.?\d+$|^\d+\.$/.test(s))return NaN;
+  return parseFloat(s);
+}
+function numSigned(s){
+  s=String(s==null?'':s).replace(/[\u00a0\u2007\u2009\u202f]/g,' ').trim();
+  if(s==='')return null;
+  var neg=false;
+  if(s.charAt(0)==='-'){neg=true;s=s.slice(1).trim();if(s==='')return NaN;}
+  var v=num(s);
+  if(v===null)return null;
+  if(!ok(v))return NaN;
+  return neg?-v:v;
+}
+function ok(v){return typeof v==='number'&&isFinite(v)}
+function r3(x){return Math.round(x*1000)/1000}
+function fmt(x){return String(r3(x))}
+function fmt1(x){return (Math.round(x*10)/10).toFixed(1)}
+function fmtAlt(x){var n=r3(x);return n>=1000?String(n).replace(/\B(?=(\d{3})+(?!\d))/g,','):String(n)}
+var EPS=1e-9;
+
+function altReductionKg(alt){
+  if(!ok(alt)||alt<=1000)return 0;
+  return Math.ceil((alt-1000)/500)*2.5;
+}
+
+function compute(d){
+  var o={};
+  var load=num(d.load),rig=num(d.rig);
+  o.total=(ok(load)&&ok(rig))?r3(load+rig):null;
+  var pl=num(d.payload),wk=num(d.weak);
+  o.payloadOverManual=ok(pl)&&pl>MANUAL_MAX_LIFT+EPS;
+  o.payload=(ok(pl)&&pl>0&&!o.payloadOverManual)?pl:null;
+  o.weak=ok(wk)&&wk>0?wk:null;
+  var alt=numSigned(d.alt);
+  o.alt=alt===null?null:(ok(alt)?alt:NaN);
+  o.altReduction=(ok(o.alt)?altReductionKg(o.alt):0);
+  o.allowed=o.payload!=null?r3(Math.max(0,o.payload-o.altReduction)):null;
+  o.limit=(o.allowed!=null&&o.weak!=null)?Math.min(o.allowed,o.weak):null;
+  if(o.payloadOverManual){o.cap='manual';}
+  else if(o.total==null||o.payload==null||o.weak==null){o.cap='blank';}
+  else{
+    o.overAllowed=o.total>o.allowed+EPS; o.overWeak=o.total>o.weak+EPS;
+    o.cap=(o.overAllowed||o.overWeak)?'red':'green';
+  }
+  var t=numSigned(d.temp);
+  if(t===null)o.temp='blank';
+  else if(!ok(t))o.temp='bad';
+  else if(t<-10-EPS||t>45+EPS)o.temp='out';
+  else o.temp='ok';
+  var h=num(d.humid);
+  if(h===null)o.humid='blank';
+  else if(!ok(h))o.humid='bad';
+  else if(h<30-EPS||h>90+EPS)o.humid='out';
+  else o.humid='ok';
+  o.envOk=(o.temp==='blank'||o.temp==='ok')&&(o.humid==='blank'||o.humid==='ok')&&(o.alt===null||ok(o.alt));
+  var lim=num(d.windLim),w=num(d.wind),g=num(d.gust);
+  o.windLim=ok(lim)&&lim>0?lim:null;
+  if(o.windLim==null||!ok(w)||!ok(g)){o.wx='blank';}
+  else{o.windOver=w>o.windLim+EPS;o.gustOver=g>o.windLim+EPS;o.wx=(o.windOver||o.gustOver)?'over':'ok';}
+  o.checksDone=d.checks.filter(Boolean).length; o.checksTotal=d.checks.length;
+  o.allChecks=o.checksTotal>0&&o.checksDone===o.checksTotal;
+  function hz(yes,h){if(!yes)return 'no';var v=num(h);return v===null?'need':(ok(v)?'ok':'bad')}
+  o.power=hz(d.power,d.powerH); o.trees=hz(d.trees,d.treesH);
+  o.hazOk=(o.power==='no'||o.power==='ok')&&(o.trees==='no'||o.trees==='ok');
+  o.go=o.cap==='green'&&o.wx==='ok'&&o.allChecks&&o.hazOk&&o.envOk;
+  return o;
+}
+
+var numIds=['wLoad','wRig','lineLen','payload','weak','temp','humid','alt','dist','height','pwrH','treesH','windLim','wind','gust'];
+var signedIds={temp:1,alt:1};
+var qcs=[].slice.call(document.querySelectorAll('#qc input'));
+function read(){
+  return {load:$('wLoad').value,rig:$('wRig').value,
+    payload:$('payload').value,weak:$('weak').value,temp:$('temp').value,humid:$('humid').value,alt:$('alt').value,
+    windLim:$('windLim').value,wind:$('wind').value,gust:$('gust').value,
+    power:$('pwr').checked,powerH:$('pwrH').value,trees:$('trees').checked,treesH:$('treesH').value,
+    checks:qcs.map(function(c){return c.checked})};
+}
+var goTime=null;
+
+function pdfEsc(s){s=String(s).replace(/\u2014|\u2013/g,'-').replace(/\u2713/g,'OK').replace(/[^\x20-\x7E]/g,'?');return s.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)')}
+function pad10(n){n=String(n);return '0000000000'.slice(n.length)+n}
+function buildPdfLines(rec){
+  var lines=[], L=function(s){lines.push(String(s))};
+  L('J100 LIFT CHECKLIST - RECORD');
+  L('LIFT DATE: '+(rec.liftDate||'(blank)')+'    TIME: '+(rec.liftTime||'(blank)'));
+  L('Saved: '+rec.stamp);
+  L('');
+  L('1 LOAD');
+  L('  What: '+(rec.what||'(blank)'));
+  L('  Load: '+(rec.load||'(blank)')+' kg   Rigging: '+(rec.rig||'(blank)')+' kg');
+  L('  Line length: '+(rec.lineLen||'(blank)')+' m   Line type: '+(rec.lineType||'(blank)'));
+  L('  Total lifted: '+(rec.totalText||'-- kg'));
+  L('');
+  L('2 CAPACITY');
+  L('  Drone max payload: '+(rec.payload||'(blank)')+' kg');
+  L('  Weakest rigging: '+(rec.weak||'(blank)')+' kg');
+  L('  Temp: '+(rec.temp||'(blank)')+' C   Humidity: '+(rec.humid||'(blank)')+' %   Altitude: '+(rec.alt||'(blank)')+' m ASL');
+  L('  Altitude derating: '+rec.altWork);
+  L('  Allowed drone payload: '+(rec.allowedText||'(n/a)'));
+  L('  Result: '+rec.capText);
+  L('');
+  L('3 FLIGHT');
+  L('  Distance: '+(rec.dist||'(blank)')+' m   Height: '+(rec.height||'(blank)')+' m');
+  L('  Underneath - People: '+rec.uPeople+'  Roads: '+rec.uRoads+'  Water: '+rec.uWater);
+  L('  Powerlines present: '+rec.powerText);
+  L('  Trees present: '+rec.treesText);
+  L('');
+  L('4 WEATHER');
+  L('  Wind limit: '+(rec.windLim||'(blank)')+' '+rec.windUnit);
+  L('  Wind now: '+(rec.wind||'(blank)')+'   Gust: '+(rec.gust||'(blank)'));
+  L('  Result: '+rec.wxText);
+  L('');
+  L('5 QUICK CHECKS ('+rec.checksDone+' of '+rec.checksTotal+')');
+  rec.checkLines.forEach(function(c){L('  '+c)});
+  L('');
+  L('GO STATUS: '+rec.goText);
+  L('');
+  L('Source: EAVision J100 User Manual (2024), Specs & Lifting precautions.');
+  L('Checklist aid only. Pilot in command makes the final call.');
+  return lines;
+}
+function buildPdfBytes(rec){
+  var lines=buildPdfLines(rec);
+  var parts=['BT','50 750 Td'];
+  lines.forEach(function(line,i){
+    var big=i<2;
+    if(i)parts.push('0 -'+(i<=2?20:14)+' Td');
+    parts.push(big?'/F2 14 Tf':'/F1 10 Tf');
+    parts.push('('+pdfEsc(line)+') Tj');
+  });
+  parts.push('ET');
+  var stream=parts.join('\n');
+  var objs=[];
+  objs.push('<< /Type /Catalog /Pages 2 0 R >>');
+  objs.push('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+  objs.push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>');
+  objs.push('<< /Length '+stream.length+' >>\nstream\n'+stream+'\nendstream');
+  objs.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+  objs.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>');
+  var pieces=['%PDF-1.4\n'];
+  var offsets=[0];
+  for(var i=0;i<objs.length;i++){
+    offsets.push(pieces.reduce(function(a,c){return a+c.length},0));
+    pieces.push((i+1)+' 0 obj\n'+objs[i]+'\nendobj\n');
+  }
+  var xrefPos=pieces.reduce(function(a,c){return a+c.length},0);
+  var xref='xref\n0 '+(objs.length+1)+'\n0000000000 65535 f \n';
+  for(var j=1;j<offsets.length;j++)xref+=pad10(offsets[j])+' 00000 n \n';
+  pieces.push(xref);
+  pieces.push('trailer\n<< /Size '+(objs.length+1)+' /Root 1 0 R >>\nstartxref\n'+xrefPos+'\n%%EOF\n');
+  var bin=pieces.join('');
+  var bytes=new Uint8Array(bin.length);
+  for(var k=0;k<bin.length;k++)bytes[k]=bin.charCodeAt(k)&0xff;
+  return bytes;
+}
+function pad2(n){return ('0'+n).slice(-2)}
+function localDateStr(d){return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())}
+function localTimeStr(d){return pad2(d.getHours())+':'+pad2(d.getMinutes())}
+function setDateTimeNow(d){d=d||new Date();$('liftDate').value=localDateStr(d);$('liftTime').value=localTimeStr(d);}
+function buildPdfFilename(d){
+  d=d||new Date();
+  return 'J100_Lift_'+d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'_'+pad2(d.getHours())+pad2(d.getMinutes())+'.pdf';
+}
+function altWorkText(o,altRaw){
+  if(o.payloadOverManual)return 'n/a (payload over manual 60 kg)';
+  if(o.payload==null)return '(enter payload)';
+  if(altRaw==null||String(altRaw).trim()==='')return 'Altitude blank: no reduction, allowed '+fmt1(o.allowed)+' kg';
+  if(!ok(o.alt))return 'Altitude unclear number';
+  if(o.alt<=1000)return 'Altitude '+fmtAlt(o.alt)+' m: no reduction (<=1000 m), allowed '+fmt1(o.allowed)+' kg';
+  return 'Altitude '+fmtAlt(o.alt)+' m: -'+fmt1(o.altReduction)+' kg, allowed '+fmt1(o.allowed)+' kg';
+}
+function snapshotRecord(){
+  var d=read(),o=compute(d),u=$('windUnit').value,now=new Date();
+  var stamp=now.getFullYear()+'-'+pad2(now.getMonth()+1)+'-'+pad2(now.getDate())+' '+pad2(now.getHours())+':'+pad2(now.getMinutes());
+  var checkLines=qcs.map(function(c){return (c.checked?'[x] ':'[ ] ')+qLabel(c)});
+  function hzText(st,h){return st==='no'?'no':'YES - height '+(st==='ok'?fmt(num(h))+' m':(st==='bad'?'"'+h.trim()+'" (unclear number) - NOT READY':'(blank) - NOT READY'))}
+  var capText=o.cap==='green'?'GREEN - WITHIN CAPACITY':(o.cap==='red'?'RED - OVER CAPACITY / DO NOT LIFT':(o.cap==='manual'?'RED - Manual limit is 60 kg':'ENTER NUMBERS (incomplete)'));
+  var wxText=o.wx==='ok'?'Within wind limit':(o.wx==='over'?'OVER WIND LIMIT - DO NOT LIFT':'Enter wind limit, wind and gust (incomplete)');
+  var goText=o.go?(goTime?'GO confirmed at '+goTime:'GO unlocked (not yet tapped)'):'GO locked';
+  var aw=altWorkText(o,d.alt);
+  return {
+    stamp:stamp, liftDate:$('liftDate').value.trim(), liftTime:$('liftTime').value.trim(), what:$('what').value.trim(), load:d.load, rig:d.rig,
+    totalText:o.total!=null?fmt(o.total)+' kg':'-- kg',
+    payload:d.payload, weak:d.weak, cap:o.cap, capText:capText,
+    temp:$('temp').value.trim(), humid:$('humid').value.trim(), alt:$('alt').value.trim(),
+    altWork:aw, allowedText:o.allowed!=null?fmt1(o.allowed)+' kg':'(n/a)',
+    lineLen:$('lineLen').value.trim(), lineType:$('lineType').value,
+    dist:$('dist').value, height:$('height').value,
+    power:o.power, powerH:$('pwrH').value, powerText:hzText(o.power,$('pwrH').value),
+    trees:o.trees, treesH:$('treesH').value, treesText:hzText(o.trees,$('treesH').value),
+    uPeople:$('uPeople').checked?'YES':'no', uRoads:$('uRoads').checked?'YES':'no', uWater:$('uWater').checked?'YES':'no',
+    windLim:d.windLim, windUnit:u, wind:d.wind, gust:d.gust, wx:o.wx, wxText:wxText,
+    checksDone:o.checksDone, checksTotal:o.checksTotal, checkLines:checkLines,
+    go:o.go, goTime:goTime, goText:goText
+  };
+}
+function qLabel(c){return c.parentNode.querySelector('span').textContent.replace(/\u2013/g,'-')}
+function notReady(o){
+  var why=[];
+  if(o.cap==='manual')why.push('Manual limit is 60 kg - reduce drone max payload');
+  else if(o.cap==='red')why.push('Capacity RED - over capacity');
+  else if(o.cap!=='green')why.push('Capacity: enter numbers');
+  if(o.temp==='out')why.push('Temperature outside J100 operating range (-10 to 45 C)');
+  else if(o.temp==='bad')why.push('Temperature: unclear number');
+  if(o.humid==='out')why.push('Humidity outside J100 operating range (30 to 90% RH)');
+  else if(o.humid==='bad')why.push('Humidity: unclear number');
+  if(o.alt!==null&&!ok(o.alt))why.push('Altitude: unclear number');
+  if(o.wx==='over')why.push('Wind/gust over your limit');else if(o.wx!=='ok')why.push('Weather: enter wind limit, wind, gust');
+  if(o.power==='need')why.push('Powerlines YES: enter powerline height (m)');else if(o.power==='bad')why.push('Powerline height: unclear number');
+  if(o.trees==='need')why.push('Trees YES: enter tree height (m)');else if(o.trees==='bad')why.push('Tree height: unclear number');
+  var miss=qcs.filter(function(c){return !c.checked});
+  var namedQs={rigInsp:1,lz:1,manLim:1,noWires:1,batt30:1,weighed:1};var named=miss.filter(function(c){return namedQs[c.getAttribute('data-q')];});
+  named.forEach(function(c){why.push('Not ticked: '+qLabel(c))});
+  var other=miss.length-named.length;
+  if(other>0)why.push(other+(named.length?' other':'')+' quick check'+(other===1?'':'s')+' not ticked');
+  return why;
+}
+function canShareFiles(file){
+  try{
+    if(!navigator.share||!navigator.canShare)return false;
+    return !!navigator.canShare({files:[file]});
+  }catch(e){return false}
+}
+function downloadPdf(bytes, name){
+  var blob=new Blob([bytes],{type:'application/pdf'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download=name;a.rel='noopener';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(url)},2000);
+}
+function saveOrEmail(){
+  var rec=snapshotRecord();
+  var bytes=buildPdfBytes(rec);
+  var name=buildPdfFilename();
+  var blob=new Blob([bytes],{type:'application/pdf'});
+  var file;
+  try{file=new File([blob],name,{type:'application/pdf'})}catch(e){file=null}
+  var hint=$('saveHint');
+  function okShare(){hint.textContent='Opened share sheet — pick Mail or Save to Files.';}
+  function okDl(){hint.textContent='PDF downloaded: '+name;}
+  if(file&&canShareFiles(file)){
+    navigator.share({files:[file],title:'J100 lift record',text:'J100 lift record '+(rec.liftDate||'')+' '+(rec.liftTime||'')}).then(okShare).catch(function(err){
+      if(err&&err.name==='AbortError'){hint.textContent='Share cancelled.';return}
+      downloadPdf(bytes,name);okDl();
+    });
+    return {mode:'share',filename:name,bytes:bytes,record:rec};
+  }
+  downloadPdf(bytes,name);okDl();
+  return {mode:'download',filename:name,bytes:bytes,record:rec};
+}
+
+function render(){
+  var d=read(),o=compute(d),u=$('windUnit').value;
+  numIds.forEach(function(id){
+    var raw=$(id).value, v=signedIds[id]?numSigned(raw):num(raw);
+    var bad=v!==null&&!ok(v);
+    if(id==='payload'&&o.payloadOverManual)bad=true;
+    if(id==='temp'&&o.temp==='out')bad=true;
+    if(id==='humid'&&o.humid==='out')bad=true;
+    $(id).classList.toggle('bad',bad);
+  });
+  if(o.total!=null){
+    $('total').textContent=fmt(o.total)+' kg';
+    $('totF').textContent=fmt(num(d.load))+' + '+fmt(num(d.rig))+' = '+fmt(o.total)+' kg';
+  }else{$('total').textContent='-- kg';$('totF').textContent='load + rigging (enter 0 if none)';}
+  var aw=$('altWork');
+  if(o.payload!=null&&(String(d.alt).trim()!==''||o.altReduction>0)){
+    aw.hidden=false; aw.textContent=altWorkText(o,d.alt);
+  }else if(o.payload!=null&&String(d.alt).trim()===''){
+    aw.hidden=false; aw.textContent='Altitude blank: no reduction (enter m ASL if known)';
+  }else{aw.hidden=true; aw.textContent='';}
+  var c=$('cap');c.className='res'+(o.cap==='blank'?'':' '+(o.cap==='manual'?'red':o.cap));
+  if(o.cap==='manual'){
+    c.innerHTML='RED - Manual limit is 60 kg<small>Drone max payload cannot exceed 60 kg (EAVision J100 lifting precautions)</small>';
+  }else if(o.cap==='green'){
+    c.innerHTML='GREEN - WITHIN CAPACITY<small>'+fmt(o.total)+' kg &le; lesser limit '+fmt(o.limit)+' kg<br>(allowed drone '+fmt1(o.allowed)+' / weak '+fmt(o.weak)+')</small>';
+  }else if(o.cap==='red'){
+    var s=[];
+    if(o.overAllowed)s.push(fmt(o.total)+' kg &gt; allowed drone payload '+fmt1(o.allowed)+' kg');
+    if(o.overWeak)s.push(fmt(o.total)+' kg &gt; weakest rating '+fmt(o.weak)+' kg');
+    c.innerHTML='RED - OVER CAPACITY<br>DO NOT LIFT<small>'+s.join('<br>')+'</small>';
+  }else{
+    var m=[];if(o.total==null)m.push('load + rigging');if(o.payload==null)m.push('drone max payload');if(o.weak==null)m.push('weakest rating');
+    c.innerHTML='ENTER NUMBERS<small>Need: '+m.join(', ')+'</small>';
+  }
+  ['uPeople','uRoads','uWater','pwr','trees'].forEach(function(id){$(id+'T').textContent=$(id).checked?'YES':'no'});
+  $('pwrHW').hidden=!$('pwr').checked; $('treesHW').hidden=!$('trees').checked;
+  $('pwrH').classList.toggle('bad',o.power==='need'||o.power==='bad'); $('treesH').classList.toggle('bad',o.trees==='need'||o.trees==='bad');
+  var w=$('wxStat');
+  if(o.wx==='ok'){w.className='wx ok';w.textContent='Wind '+fmt(num(d.wind))+' / gust '+fmt(num(d.gust))+' '+u+' - within your limit '+fmt(o.windLim)+' '+u;}
+  else if(o.wx==='over'){w.className='wx over';w.textContent='OVER WIND LIMIT - DO NOT LIFT ('+(o.windOver?'wind '+fmt(num(d.wind)):'')+(o.windOver&&o.gustOver?', ':'')+(o.gustOver?'gust '+fmt(num(d.gust)):'')+' > '+fmt(o.windLim)+' '+u+')';}
+  else{w.className='wx';w.textContent='Enter wind limit, wind and gust';}
+  $('qcCount').textContent=o.checksDone+' of '+o.checksTotal+' done';
+  var g=$('go');g.disabled=!o.go;
+  if(!o.go){goTime=null;g.classList.remove('done');g.textContent='GO locked';}
+  else if(goTime){g.textContent='GO \u2713 '+goTime;}
+  else{g.textContent='GO';}
+  var why=notReady(o);
+  $('why').innerHTML=o.go?'All clear: capacity GREEN, env in range, wind within limit, all checks ticked, hazard heights recorded.':'Not ready:<ul><li>'+why.join('</li><li>')+'</li></ul>';
+  return o;
+}
+var pv=lsGet(KEY.payload),wv=lsGet(KEY.windLim),uv=lsGet(KEY.windUnit);
+if(pv!==null)$('payload').value=pv;
+if(wv!==null)$('windLim').value=wv;
+if(uv&&/^(km\/h|m\/s|kn)$/.test(uv))$('windUnit').value=uv;
+$('payload').addEventListener('input',function(){lsSet(KEY.payload,this.value.trim())});
+$('windLim').addEventListener('input',function(){lsSet(KEY.windLim,this.value.trim())});
+$('windUnit').addEventListener('change',function(){lsSet(KEY.windUnit,this.value)});
+document.addEventListener('input',render);
+document.addEventListener('change',render);
+$('go').addEventListener('click',function(){
+  if(this.disabled)return;
+  var t=new Date();goTime=('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2);
+  this.classList.add('done');render();
+});
+$('btnNew').addEventListener('click',function(){
+  if(!confirm('Clear this lift? (Payload limit and wind limit stay.)'))return;
+  ['what','wLoad','wRig','lineLen','weak','temp','humid','alt','dist','height','pwrH','treesH','wind','gust'].forEach(function(id){$(id).value=''});
+  $('lineType').value='';
+  ['uPeople','uRoads','uWater','pwr','trees'].forEach(function(id){$(id).checked=false});
+  qcs.forEach(function(q){q.checked=false});
+  setDateTimeNow();
+  goTime=null;render();window.scrollTo(0,0);
+});
+$('btnSave').addEventListener('click',function(){saveOrEmail()});
+setDateTimeNow();
+render();
+window.__J100S={compute:compute,render:render,num:num,numSigned:numSigned,altReductionKg:altReductionKg,buildPdfBytes:buildPdfBytes,buildPdfLines:buildPdfLines,buildPdfFilename:buildPdfFilename,snapshotRecord:snapshotRecord,notReady:function(){return notReady(compute(read()))},canShareFiles:canShareFiles,saveOrEmail:saveOrEmail,setDateTimeNow:setDateTimeNow,MANUAL_MAX_LIFT:MANUAL_MAX_LIFT};
+})();
+</script>
+</body>
+</html>
