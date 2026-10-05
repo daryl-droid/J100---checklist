@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>J100 Lift Checklist (simple)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="J100 Lift">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000'/%3E%3Ctext x='32' y='42' font-size='26' font-family='Arial' font-weight='bold' text-anchor='middle' fill='white'%3EJ100%3C/text%3E%3C/svg%3E">
+<style>
+:root{--g:#0a7a2f;--r:#c40000;--ink:#000;--mut:#333;--line:#000;--grey:#555}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font:18px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+header{background:#000;color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;display:flex;align-items:center;gap:10px}
+header h1{margin:0;font-size:21px;flex:1;line-height:1.1}
+header h1 small{display:block;font-size:13px;font-weight:400;opacity:.9}
+header button{min-height:44px;padding:0 12px;border:2px solid #fff;border-radius:10px;background:#000;color:#fff;font-family:inherit;font-weight:700;font-size:15px}
+main{max-width:620px;margin:0 auto;padding:10px 12px 24px}
+section{border:3px solid var(--line);border-radius:14px;padding:12px;margin:0 0 12px}
+h2{margin:0 0 10px;font-size:21px;display:flex;align-items:center;gap:10px}
+h2 .n{background:#000;color:#fff;border-radius:50%;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+label.f{display:block;margin:0 0 10px}
+label.f>span{display:block;font-size:15px;font-weight:700;margin-bottom:3px}
+input[type=text],select{width:100%;min-height:54px;font-size:20px;padding:8px 12px;border:2px solid #000;border-radius:10px;background:#fff;color:#000;font-family:inherit;-webkit-appearance:none;appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,#000 50%),linear-gradient(135deg,#000 50%,transparent 50%);background-position:calc(100% - 22px) 24px,calc(100% - 14px) 24px;background-size:8px 8px;background-repeat:no-repeat;padding-right:36px}
+input:focus,select:focus{outline:4px solid #0057ff;outline-offset:1px}
+input.bad{border-color:var(--r);background:#ffecec}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.u{font-weight:400}
+.tot{font-size:19px;font-weight:800;border-top:3px solid #000;padding-top:8px;margin-top:2px}
+.tot code{display:block;font:600 15px/1.35 ui-monospace,Menlo,monospace;color:var(--mut);word-break:break-word}
+.lim{font-size:14px;font-weight:700;background:#fff3b0;border:2px solid #000;border-radius:8px;padding:6px 8px;margin:0 0 10px}
+.res{border-radius:12px;padding:16px 10px;text-align:center;font-weight:900;font-size:28px;line-height:1.1;color:#fff;background:var(--grey);margin-top:4px}
+.res small{display:block;font-size:16px;font-weight:700;margin-top:6px;line-height:1.25}
+.res.green{background:var(--g)}
+.res.red{background:var(--r)}
+.wx{font-size:17px;font-weight:800;padding:8px 10px;border-radius:10px;border:3px solid #000;margin-top:2px}
+.wx.ok{background:#d8f5e0;border-color:var(--g);color:#05501f}
+.wx.over{background:var(--r);color:#fff;border-color:var(--r)}
+.tg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.tg label,.qc label{position:relative;display:block;cursor:pointer}
+.tg input,.qc input{position:absolute;opacity:0;width:1px;height:1px}
+.tg span{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:62px;border:3px solid #000;border-radius:10px;font-weight:800;font-size:17px;background:#fff;text-align:center;line-height:1.1}
+.tg span i{font-style:normal;font-size:13px;font-weight:700;margin-top:3px}
+.tg input:checked+span{background:#000;color:#fff}
+.tg input:focus-visible+span,.qc input:focus-visible+span{outline:4px solid #0057ff}
+.qc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qc span{display:flex;align-items:center;gap:10px;min-height:62px;padding:6px 10px;border:3px solid #000;border-radius:10px;font-weight:800;font-size:17px;line-height:1.1;background:#fff}
+.qc span::before{content:"";flex:none;width:30px;height:30px;border:3px solid #000;border-radius:7px;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:22px;color:#fff}
+.qc input:checked+span{background:#d8f5e0;border-color:var(--g)}
+.qc input:checked+span::before{content:"\2713";background:var(--g);border-color:var(--g)}
+.cnt{font-size:15px;font-weight:700;margin:8px 0 0}
+#go{display:block;width:100%;min-height:84px;border:0;border-radius:16px;font-family:inherit;font-weight:900;font-size:36px;line-height:1;letter-spacing:3px;background:var(--g);color:#fff;margin:4px 0 8px}
+#go:disabled{background:#bdbdbd;color:#4a4a4a;letter-spacing:0;font-size:24px}
+#go.done{background:#000}
+#why{font-size:16px;font-weight:700;margin:0 0 6px}
+#why li{margin:2px 0}
+#why ul{margin:4px 0 0;padding-left:22px}
+.foot{font-size:13px;color:var(--mut);margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>J100 Lift Checklist<small>Simple - works offline</small></h1>
+  <button type="button" id="btnNew">New lift</button>
+</header>
+<main>
+
+<section id="s-load">
+  <h2><span class="n">1</span>Load</h2>
+  <label class="f"><span>What you're lifting</span><input type="text" id="what" autocomplete="off" placeholder="e.g. tower part"></label>
+  <label class="f"><span>Load weight <span class="u">(kg)</span></span><input type="text" id="wLoad" inputmode="decimal" autocomplete="off" placeholder="kg"></label>
+  <div class="row3">
+    <label class="f"><span>Line <span class="u">kg</span></span><input type="text" id="wLine" inputmode="decimal" autocomplete="off" placeholder="kg"></label>
+    <label class="f"><span>Hook <span class="u">kg</span></span><input type="text" id="wHook" inputmode="decimal" autocomplete="off" placeholder="kg"></label>
+    <label class="f"><span>Sling <span class="u">kg</span></span><input type="text" id="wSling" inputmode="decimal" autocomplete="off" placeholder="kg"></label>
+  </div>
+  <div class="tot">Total lifted: <span id="total">-- kg</span>
+    <code id="totF">load + line + hook + sling (enter 0 if none)</code></div>
+</section>
+
+<section id="s-cap">
+  <h2><span class="n">2</span>Capacity</h2>
+  <div class="lim">Limits are entered by YOU from the J100 manual and your rigging tags. This app contains no J100 specs.</div>
+  <div class="row">
+    <label class="f"><span>J100 payload limit <span class="u">(kg, saved on phone)</span></span><input type="text" id="payload" inputmode="decimal" autocomplete="off" placeholder="enter kg"></label>
+    <label class="f"><span>Weakest rigging rating <span class="u">(kg)</span></span><input type="text" id="weak" inputmode="decimal" autocomplete="off" placeholder="enter kg"></label>
+  </div>
+  <div class="res" id="cap" role="status" aria-live="polite">ENTER NUMBERS<small>Total load, payload limit and weakest rating</small></div>
+</section>
+
+<section id="s-flight">
+  <h2><span class="n">3</span>Flight</h2>
+  <div class="row">
+    <label class="f"><span>Distance <span class="u">(m)</span></span><input type="text" id="dist" inputmode="decimal" autocomplete="off" placeholder="m"></label>
+    <label class="f"><span>Height <span class="u">(m)</span></span><input type="text" id="height" inputmode="decimal" autocomplete="off" placeholder="m"></label>
+  </div>
+  <div style="font-size:15px;font-weight:700;margin:0 0 4px">Anything underneath? <span class="u">(tap if yes)</span></div>
+  <div class="tg">
+    <label><input type="checkbox" id="uPeople"><span>People<i id="uPeopleT">no</i></span></label>
+    <label><input type="checkbox" id="uRoads"><span>Roads<i id="uRoadsT">no</i></span></label>
+    <label><input type="checkbox" id="uWater"><span>Water<i id="uWaterT">no</i></span></label>
+  </div>
+</section>
+
+<section id="s-wx">
+  <h2><span class="n">4</span>Weather</h2>
+  <div class="row">
+    <label class="f"><span>Your wind limit <span class="u">(saved on phone)</span></span><input type="text" id="windLim" inputmode="decimal" autocomplete="off" placeholder="enter limit"></label>
+    <label class="f"><span>Unit</span><select id="windUnit"><option>km/h</option><option>m/s</option><option>kn</option></select></label>
+  </div>
+  <div class="row">
+    <label class="f"><span>Wind now</span><input type="text" id="wind" inputmode="decimal" autocomplete="off" placeholder="wind"></label>
+    <label class="f"><span>Gust</span><input type="text" id="gust" inputmode="decimal" autocomplete="off" placeholder="gust"></label>
+  </div>
+  <div class="wx" id="wxStat" role="status" aria-live="polite">Enter wind limit, wind and gust</div>
+</section>
+
+<section id="s-qc">
+  <h2><span class="n">5</span>Quick checks</h2>
+  <div class="qc" id="qc">
+    <label><input type="checkbox" data-q="props"><span>Props</span></label>
+    <label><input type="checkbox" data-q="batt"><span>Batteries</span></label>
+    <label><input type="checkbox" data-q="hook"><span>Hook release test</span></label>
+    <label><input type="checkbox" data-q="line"><span>Line condition</span></label>
+    <label><input type="checkbox" data-q="rig"><span>Load rigged &amp; secure</span></label>
+    <label><input type="checkbox" data-q="hover"><span>Hover test</span></label>
+    <label><input type="checkbox" data-q="area"><span>Area clear</span></label>
+    <label><input type="checkbox" data-q="obs"><span>Observer in place</span></label>
+    <label><input type="checkbox" data-q="nav"><span>NavDrone plan active</span></label>
+  </div>
+  <div class="cnt" id="qcCount">0 of 9 done</div>
+</section>
+
+<button type="button" id="go" disabled>GO locked</button>
+<div id="why" role="status" aria-live="polite"></div>
+<div class="foot">Checklist aid only. The pilot in command makes the final call. No data leaves the phone; only the payload limit and wind limit are remembered.</div>
+</main>
+<script>
+(function(){
+'use strict';
+var KEY={payload:'j100s.payload',windLim:'j100s.windLim',windUnit:'j100s.windUnit'};
+function $(id){return document.getElementById(id)}
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+/* parse a user number: blank -> null, invalid/negative -> NaN.
+   Comma rules: comma + exactly 3 digits = thousands separator ("1,000"=1000, "12,500"=12500,
+   "1,000,000"=1000000, "1,000.5"=1000.5). Comma + any other digit count = decimal ("1,5"=1.5, "1,25"=1.25).
+   Spaces allowed only as thousands separators in groups of 3 ("1 000"=1000, "1 000,5"=1000.5).
+   Ambiguous forms ("0,500", "1.000,5", "1,5,3", "1234,567") are rejected (field turns red, GO stays locked). */
+function num(s){
+  s=String(s==null?'':s).replace(/[\u00a0\u2007\u2009\u202f]/g,' ').trim();
+  if(s==='')return null;
+  if(/\s/.test(s)){
+    if(!/^[1-9]\d{0,2}( \d{3})+([.,]\d*)?$/.test(s))return NaN;
+    s=s.replace(/ /g,'');
+  }
+  if(s.indexOf(',')>=0){
+    if(/^[1-9]\d{0,2}(,\d{3})+(\.\d*)?$/.test(s))s=s.replace(/,/g,'');
+    else if(/^\d*,\d*$/.test(s)&&s.split(',')[1].length!==3)s=s.replace(',','.');
+    else return NaN;
+  }
+  if(!/^\d*\.?\d+$|^\d+\.$/.test(s))return NaN;
+  return parseFloat(s);
+}
+function ok(v){return typeof v==='number'&&isFinite(v)}
+function r3(x){return Math.round(x*1000)/1000}
+function fmt(x){return String(r3(x))}
+var EPS=1e-9;
+
+/* Pure calculation, exposed for testing. All inputs are strings as typed. */
+function compute(d){
+  var o={};
+  var parts=[num(d.load),num(d.line),num(d.hook),num(d.sling)];
+  o.total=parts.every(ok)?r3(parts[0]+parts[1]+parts[2]+parts[3]):null;
+  var pl=num(d.payload),wk=num(d.weak);
+  o.payload=ok(pl)&&pl>0?pl:null; o.weak=ok(wk)&&wk>0?wk:null;
+  if(o.total==null||o.payload==null||o.weak==null){o.cap='blank';}
+  else{
+    o.overPayload=o.total>o.payload+EPS; o.overWeak=o.total>o.weak+EPS;
+    o.cap=(o.overPayload||o.overWeak)?'red':'green';
+  }
+  var lim=num(d.windLim),w=num(d.wind),g=num(d.gust);
+  o.windLim=ok(lim)&&lim>0?lim:null;
+  if(o.windLim==null||!ok(w)||!ok(g)){o.wx='blank';}
+  else{o.windOver=w>o.windLim+EPS;o.gustOver=g>o.windLim+EPS;o.wx=(o.windOver||o.gustOver)?'over':'ok';}
+  o.checksDone=d.checks.filter(Boolean).length; o.checksTotal=d.checks.length;
+  o.allChecks=o.checksTotal>0&&o.checksDone===o.checksTotal;
+  o.go=o.cap==='green'&&o.wx==='ok'&&o.allChecks;
+  return o;
+}
+
+var numIds=['wLoad','wLine','wHook','wSling','payload','weak','dist','height','windLim','wind','gust'];
+var qcs=[].slice.call(document.querySelectorAll('#qc input'));
+function read(){
+  return {load:$('wLoad').value,line:$('wLine').value,hook:$('wHook').value,sling:$('wSling').value,
+    payload:$('payload').value,weak:$('weak').value,windLim:$('windLim').value,wind:$('wind').value,gust:$('gust').value,
+    checks:qcs.map(function(c){return c.checked})};
+}
+var goTime=null;
+function render(){
+  var d=read(),o=compute(d),u=$('windUnit').value;
+  numIds.forEach(function(id){var v=num($(id).value);$(id).classList.toggle('bad',v!==null&&!ok(v))});
+  /* 1 Load */
+  if(o.total!=null){
+    $('total').textContent=fmt(o.total)+' kg';
+    $('totF').textContent=[d.load,d.line,d.hook,d.sling].map(function(s){return fmt(num(s))}).join(' + ')+' = '+fmt(o.total)+' kg';
+  }else{$('total').textContent='-- kg';$('totF').textContent='load + line + hook + sling (enter 0 if none)';}
+  /* 2 Capacity */
+  var c=$('cap');c.className='res'+(o.cap==='blank'?'':' '+o.cap);
+  if(o.cap==='green'){
+    c.innerHTML='GREEN - WITHIN CAPACITY<small>'+fmt(o.total)+' kg &le; payload limit '+fmt(o.payload)+' kg<br>'+fmt(o.total)+' kg &le; weakest rating '+fmt(o.weak)+' kg</small>';
+  }else if(o.cap==='red'){
+    var s=[];
+    if(o.overPayload)s.push(fmt(o.total)+' kg &gt; payload limit '+fmt(o.payload)+' kg');
+    if(o.overWeak)s.push(fmt(o.total)+' kg &gt; weakest rating '+fmt(o.weak)+' kg');
+    c.innerHTML='RED - OVER CAPACITY<br>DO NOT LIFT<small>'+s.join('<br>')+'</small>';
+  }else{
+    var m=[];if(o.total==null)m.push('all 4 weights');if(o.payload==null)m.push('payload limit');if(o.weak==null)m.push('weakest rating');
+    c.innerHTML='ENTER NUMBERS<small>Need: '+m.join(', ')+'</small>';
+  }
+  /* 3 Flight toggles */
+  ['uPeople','uRoads','uWater'].forEach(function(id){$(id+'T').textContent=$(id).checked?'YES':'no'});
+  /* 4 Weather */
+  var w=$('wxStat');
+  if(o.wx==='ok'){w.className='wx ok';w.textContent='Wind '+fmt(num(d.wind))+' / gust '+fmt(num(d.gust))+' '+u+' - within your limit '+fmt(o.windLim)+' '+u;}
+  else if(o.wx==='over'){w.className='wx over';w.textContent='OVER WIND LIMIT - DO NOT LIFT ('+(o.windOver?'wind '+fmt(num(d.wind)):'')+(o.windOver&&o.gustOver?', ':'')+(o.gustOver?'gust '+fmt(num(d.gust)):'')+' > '+fmt(o.windLim)+' '+u+')';}
+  else{w.className='wx';w.textContent='Enter wind limit, wind and gust';}
+  /* 5 Checks */
+  $('qcCount').textContent=o.checksDone+' of '+o.checksTotal+' done';
+  /* GO */
+  var g=$('go');g.disabled=!o.go;
+  if(!o.go){goTime=null;g.classList.remove('done');g.textContent='GO locked';}
+  else if(goTime){g.textContent='GO \u2713 '+goTime;}
+  else{g.textContent='GO';}
+  var why=[];
+  if(o.cap==='red')why.push('Capacity RED - over capacity');else if(o.cap!=='green')why.push('Capacity: enter numbers');
+  if(o.wx==='over')why.push('Wind/gust over your limit');else if(o.wx!=='ok')why.push('Weather: enter wind limit, wind, gust');
+  if(!o.allChecks)why.push((o.checksTotal-o.checksDone)+' quick check'+(o.checksTotal-o.checksDone===1?'':'s')+' not ticked');
+  $('why').innerHTML=o.go?'All clear: capacity GREEN, wind within limit, all checks ticked.':'Not ready:<ul><li>'+why.join('</li><li>')+'</li></ul>';
+  return o;
+}
+/* remembered limits */
+var pv=lsGet(KEY.payload),wv=lsGet(KEY.windLim),uv=lsGet(KEY.windUnit);
+if(pv!==null)$('payload').value=pv;
+if(wv!==null)$('windLim').value=wv;
+if(uv&&/^(km\/h|m\/s|kn)$/.test(uv))$('windUnit').value=uv;
+$('payload').addEventListener('input',function(){lsSet(KEY.payload,this.value.trim())});
+$('windLim').addEventListener('input',function(){lsSet(KEY.windLim,this.value.trim())});
+$('windUnit').addEventListener('change',function(){lsSet(KEY.windUnit,this.value)});
+document.addEventListener('input',render);
+document.addEventListener('change',render);
+$('go').addEventListener('click',function(){
+  if(this.disabled)return;
+  var t=new Date();goTime=('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2);
+  this.classList.add('done');render();
+});
+$('btnNew').addEventListener('click',function(){
+  if(!confirm('Clear this lift? (Payload limit and wind limit stay.)'))return;
+  ['what','wLoad','wLine','wHook','wSling','weak','dist','height','wind','gust'].forEach(function(id){$(id).value=''});
+  ['uPeople','uRoads','uWater'].forEach(function(id){$(id).checked=false});
+  qcs.forEach(function(q){q.checked=false});
+  goTime=null;render();window.scrollTo(0,0);
+});
+render();
+window.__J100S={compute:compute,render:render,num:num};
+})();
+</script>
+</body>
+</html>
